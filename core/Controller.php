@@ -3,9 +3,13 @@
 class Controller
 {
 
+	protected $template = 'frontend/template';
 
-	public function render(){
-		// inclure le fichier de la vue et l'afficher
-		//transmettre des variables -> ob_start() et ob_get_clean()
+	public function render($path, $vars){
+		extract($vars);
+		ob_start();
+		require('../views/' . $path . '.php');
+		$content = ob_get_clean();
+		require('../views/' . $this->template . '.php');
 	}
 }

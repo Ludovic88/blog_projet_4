@@ -5,5 +5,5 @@ require("../../core/Controller.php");
 
 class AdminController extends Controller
 {
-	
+	protected $template = 'backend/template';
 }
