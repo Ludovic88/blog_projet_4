@@ -1,33 +1,51 @@
-<?php //recupere lurl instancie le bon controller et execute la bonne fonction
+<?php 
 
+/**
+ * Class Router
+ * Recupere l url et instancie le bon controller et execute la bonne fonction
+ */
 class Router
 {
 
-	/*private $router = [
-		"billets" => [
-			"path" => "/blog", 
-			"run" => "BlogController@listPosts"
-		]
-	];*/
+	/**
+	 * Variable qui stock l'url de l'index
+	 */
+	private $_index = "/courPHP/blog_projet_4";
 
-	private $_index = "/courPHP/blog_projet_4/";
-
-
+	/**
+	 * Tableau $_router
+	 * Stock le chemin qui suit l'url de l index dans la clef
+	 *  => Associe le chemin au controller a instancier @ Associe la fonction
+	 */
 	private $_router = [
-	"/courPHP/blog_projet_4/" => 'BlogController@recentPosts',
-    "/courPHP/blog_projet_4/blog" => 'BlogController@allPosts',
-    "/courPHP/blog_projet_4/commentaire" => 'BlogController@post',
-    "/courPHP/blog_projet_4/admin" => 'AdminController@adminView'
+	"/" => 'BlogController@recentPosts',
+    "/blog" => 'BlogController@allPosts',
+    "/post" => 'BlogController@post',
+    "/admin" => 'AdminController@adminView',
+    "/addcomment" => 'BlogController@addComment',
+    "/signalcomment" => 'BlogController@signalComment'
 	];
 
+
+	/**
+	 * Pour separe les requete GET_ de l url actuel on le separe avec un explode
+	 * On remplace le chemin de l'index de lurl actuel par un vide avec str_replace 
+	 * Compare l'url actuelle a la clef $_router avec un foreach
+	 * Instancie le controller
+	 * Appele la fonction
+	 */
 	public function run(){
 		$uri = explode('?', $_SERVER['REQUEST_URI']);
+		$path = str_replace($this->_index,"",$uri[0]);
+
+		// vérifier si partie admin
+		// failles csrf
 		foreach($this->_router as $key => $route) {
-			if ($uri[0] == $key) {
+			if ($path == $key) {
 				$test = explode('@', $route);
 				require_once('../src/controller/' . $test[0] . '.php');
 				$controller = new $test[0]();
-				$view = $controller->{$test[1]}();
+				$controller->{$test[1]}();
 			} 
 		}
 	}

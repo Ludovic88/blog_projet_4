@@ -7,10 +7,10 @@ while ($data = $posts->fetch()){
 ?>
 	<div class="news">
 		<h2>
-			<?= htmlspecialchars($data['title']); ?>
+			<a href="/courPHP/blog_projet_4/post?id=<?= $data['id'] ?>"><?= htmlspecialchars($data['title']); ?></a>
 		</h2>
 			    
-		<p>
+		<p class="chapter">
 			<?= nl2br(htmlspecialchars($data['post'])); ?>
 		</p>
 		<p>
@@ -18,7 +18,7 @@ while ($data = $posts->fetch()){
 			<em>le <?= $data['date_creation_fr']; ?></em>
 		</p>
 		<p>
-			<em><a href="/courPHP/blog_projet_4/commentaire?id=<?= $data['id'] ?>">Commentaires</a></em>
+			<em><a href="/courPHP/blog_projet_4/post?id=<?= $data['id'] ?>">Commentaires</a></em>
 		</p>
 	</div>
 <?php

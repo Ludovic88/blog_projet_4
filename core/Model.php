@@ -1,13 +1,16 @@
 <?php 
-//model principal
-
 require("Database.php");
-//recupere le singleton 
+
+/**
+ * Class Model
+ * Model principal
+ * Gere les functions appeller dans les enfants
+ */
 class Model 
 {
+	protected $db;
     //private $_singleton = Database::getInstance();
-    protected function connect(){
-		$db = Database::getInstance()->dbConnect();
-		return $db;
+    function __construct(){
+		$this->db = Database::getInstance()->dbConnect();
     }
 }
