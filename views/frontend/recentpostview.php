@@ -11,7 +11,7 @@ while ($data = $posts->fetch()){
 		</h2>
 			    
 		<p class="chapter">
-			<?= nl2br(htmlspecialchars($data['post'])); ?>
+			<?= $data['post']; ?>
 		</p>
 		<p>
 			<?= htmlspecialchars($data['author']); ?>

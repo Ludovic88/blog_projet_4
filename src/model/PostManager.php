@@ -44,4 +44,47 @@ class PostManager extends Model
 
 	    return $post;
 	}
+
+	/**
+	 * Cree un nouveau post 
+	 * @param auteur du post $string
+	 * @param titre du post $string
+	 * @param contenu du post $string
+	 * Retourne une variable
+	 */
+	public function addNewPost($author, $title, $post)
+	{
+		$newPost = $this->db->prepare('INSERT INTO posts (author, title, post, date_post) VALUES(?, ?, ?, NOW())');
+	    $affectedPost = $newPost->execute(array($author, $title, $post));
+
+	    return $affectedPost;
+	}
+
+	/**
+	 * Modifie un post
+	 * @param titre du post $string
+	 * @param contenu du post $string
+	 * @param id du post $number
+	 * Retourne une variable
+	 */
+	public function updatePost($title, $post, $idPost)
+	{
+		$newPost = $this->db->prepare('UPDATE posts SET title = ?, post = ?, date_post = NOW() WHERE id = ?');
+		$affectedPost = $newPost->execute(array($title, $post, $idPost));
+
+		return $affectedPost;
+	}
+
+	/**
+	 * Supprime un post
+	 * @param id du post $number
+	 * Retourne une variable
+	 */
+	public function deletePost($idPost)
+	{
+		$deletedPost = $this->db->prepare('DELETE FROM posts WHERE posts . id = ?');
+		$affectedPost = $deletedPost->execute(array($idPost));
+
+		return $affectedPost;
+	}
 }

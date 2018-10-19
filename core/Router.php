@@ -21,15 +21,20 @@ class Router
 	"/" => 'BlogController@recentPosts',
     "/blog" => 'BlogController@allPosts',
     "/post" => 'BlogController@post',
-    "/admin" => 'AdminController@adminView',
     "/addcomment" => 'BlogController@addComment',
-    "/signalcomment" => 'BlogController@signalComment'
+    "/signalcomment" => 'BlogController@signalComment',
+    "/admin" => 'AdminController@allPostsAdmin',
+    "/admin/newpost" => 'AdminController@newPost',
+    '/admin-editer-chapitre' => 'AdminController@editPost',
+    '/admin-modifier-chapitre' => 'AdminController@addModifyPost',
+    '/admin/updatepost' => 'AdminController@modifyPost',
+    '/admin/deletepost' => 'AdminController@deletedPost'
 	];
 
 
 	/**
 	 * Pour separe les requete GET_ de l url actuel on le separe avec un explode
-	 * On remplace le chemin de l'index de lurl actuel par un vide avec str_replace 
+	 * On remplace le chemin de l'index de l url actuel par un vide avec str_replace 
 	 * Compare l'url actuelle a la clef $_router avec un foreach
 	 * Instancie le controller
 	 * Appele la fonction
@@ -42,10 +47,10 @@ class Router
 		// failles csrf
 		foreach($this->_router as $key => $route) {
 			if ($path == $key) {
-				$test = explode('@', $route);
-				require_once('../src/controller/' . $test[0] . '.php');
-				$controller = new $test[0]();
-				$controller->{$test[1]}();
+				$run = explode('@', $route);
+				require_once('../src/controller/' . $run[0] . '.php');
+				$controller = new $run[0]();
+				$controller->{$run[1]}();
 			} 
 		}
 	}

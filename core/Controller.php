@@ -9,7 +9,7 @@
 class Controller
 {
 
-	protected $template = 'frontend/template';
+	protected $template;
 
 	/**
      * Extrait les variables et renvoi la vue

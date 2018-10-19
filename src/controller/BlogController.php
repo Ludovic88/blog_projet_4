@@ -10,6 +10,7 @@ require_once('../src/model/CommentManager.php');
  */
 class BlogController extends Controller
 {
+	protected $template = 'frontend/template';
 
 	/**
      * Recupere le dernier post via la fonction du modele
