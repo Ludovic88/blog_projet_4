@@ -26,9 +26,10 @@ class Router
     "/admin" => 'AdminController@allPostsAdmin',
     "/admin/newpost" => 'AdminController@newPost',
     '/admin-editer-chapitre' => 'AdminController@editPost',
-    '/admin-modifier-chapitre' => 'AdminController@addModifyPost',
+    '/admin-modifier-chapitre' => 'AdminController@modaratePost',
     '/admin/updatepost' => 'AdminController@modifyPost',
-    '/admin/deletepost' => 'AdminController@deletedPost'
+    '/admin/deletepost' => 'AdminController@deletedPost',
+    '/admin/deletecomment' => 'AdminController@deletedcomment'
 	];
 
 

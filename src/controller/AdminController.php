@@ -63,7 +63,7 @@ class AdminController extends Controller
 	/**
 	 * Modifie un post
 	 */
-	public function addModifyPost()
+	public function modaratePost()
 	{
 		if (isset($_GET['id']) && $_GET['id'] > 0) {
             $postManager = new PostManager();
@@ -108,6 +108,22 @@ class AdminController extends Controller
 		    $post = $postManager->deletePost($_GET['id']);
  
  			header('Location: /courPHP/blog_projet_4/admin');
+        } else {
+        	echo "post non existant";
+        }
+	}
+
+	/**
+	 * Efface un commentaire
+	 */
+	public function deletedComment()
+	{
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $commentManager = new CommentManager();
+
+		    $comment = $commentManager->deleteComment($_GET['id']);
+ 
+ 			$this->redirectBack();
         } else {
         	echo "post non existant";
         }
