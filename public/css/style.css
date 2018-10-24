@@ -1,0 +1,61 @@
+/*===  GENERAL  ===*/
+
+.block_page
+{
+	width: 80%;
+	margin: 20px auto;
+}
+
+.min_title
+{
+	font-size: 0.7em;
+}
+
+h1, h2, h3
+{
+	text-align: center;
+}
+
+h1
+{
+	margin: 50px auto;
+}
+
+h2
+{
+	margin: 20px auto;
+}
+
+/*===  ADMIN  ===*/
+
+#editeur
+{
+    width: 500px; 
+    height: 200px; 
+    border: 1px solid black; 
+    padding: 5px; 
+    overflow: auto; 
+}
+
+
+/*===  CHAPITRE  ===*/
+
+.chapter
+{
+	text-align: justify;
+}
+
+
+/*=====  PETITE RéSOLUTION  =====*/
+
+@media screen and (max-width: 640px) 
+{
+
+
+	/*===  GENERAL  ===*/
+    .block_page 
+    {
+  		width: 95%;
+    }
+
+}
