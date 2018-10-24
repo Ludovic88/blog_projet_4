@@ -18,18 +18,20 @@ class Router
 	 *  => Associe le chemin au controller a instancier @ Associe la fonction
 	 */
 	private $_router = [
-	"/" => 'BlogController@recentPosts',
-    "/blog" => 'BlogController@allPosts',
-    "/post" => 'BlogController@post',
-    "/addcomment" => 'BlogController@addComment',
-    "/signalcomment" => 'BlogController@signalComment',
-    "/admin" => 'AdminController@allPostsAdmin',
-    "/admin/newpost" => 'AdminController@newPost',
+	'/' => 'BlogController@recentPosts',
+    '/blog' => 'BlogController@allPosts',
+    '/post' => 'BlogController@post',
+    '/addcomment' => 'BlogController@addComment',
+    '/signalcomment' => 'BlogController@signalComment',
+    '/admin' => 'AdminController@allPostsAdmin',
     '/admin-editer-chapitre' => 'AdminController@editPost',
     '/admin-modifier-chapitre' => 'AdminController@modaratePost',
+    '/admin/newpost' => 'AdminController@newPost',
     '/admin/updatepost' => 'AdminController@modifyPost',
     '/admin/deletepost' => 'AdminController@deletedPost',
-    '/admin/deletecomment' => 'AdminController@deletedcomment'
+    '/admin/deletecomment' => 'AdminController@deletedcomment',
+    '/verifypass' => 'AdminController@adminConnect',
+    '/deconnexion' => 'AdminController@disconect'
 	];
 
 
@@ -44,15 +46,28 @@ class Router
 		$uri = explode('?', $_SERVER['REQUEST_URI']);
 		$path = str_replace($this->_index,"",$uri[0]);
 
+		$adminVerify = explode('/', $path);
+		$adminPath = explode('-', $adminVerify[1]);
+
+		if ($adminPath[0] == 'admin' &&  $_SESSION['connect'] == false) {
+			ob_start();
+			require('../views/backend/adminconectview.php');
+			$content = ob_get_clean();
+			require('../views/frontend/template.php');
+		} else {
+			foreach($this->_router as $key => $route) {
+				if ($path == $key) {
+					$run = explode('@', $route);
+					require_once('../src/controller/' . $run[0] . '.php');
+					$controller = new $run[0]();
+					$controller->{$run[1]}();
+				} 
+			}
+		}
+
 		// vérifier si partie admin
 		// failles csrf
-		foreach($this->_router as $key => $route) {
-			if ($path == $key) {
-				$run = explode('@', $route);
-				require_once('../src/controller/' . $run[0] . '.php');
-				$controller = new $run[0]();
-				$controller->{$run[1]}();
-			} 
-		}
+		
+		
 	}
 }

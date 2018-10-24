@@ -2,6 +2,7 @@
 require("../core/Controller.php");
 require_once('../src/model/PostManager.php');
 require_once('../src/model/CommentManager.php');
+require_once('../src/model/AdminManager.php');
 
 /**
  * Class AdminController
@@ -46,7 +47,7 @@ class AdminController extends Controller
 	}
 
 	/**
-	 *Accueil admin
+	 * Accueil admin
      * Recupere tout les posts via la fonction du modele
      * Redirige vers la vue
      */
@@ -61,8 +62,9 @@ class AdminController extends Controller
 
 
 	/**
-	 * Modifie un post
-	 */
+     * Recupere le post et ses commentaire
+     * Redirige vers la vue modifier commentaire
+     */
 	public function modaratePost()
 	{
 		if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -127,6 +129,47 @@ class AdminController extends Controller
         } else {
         	echo "post non existant";
         }
+	}
+
+	/**
+	 * Recupere les donnees de l admin associe au pseudo
+	 * verifie si le mdp est correct
+	 * Si oui renvoie dans la partie admin
+	 * Sinon affiche erreur
+	 */
+	public function adminConnect(){
+		$adminManager = new AdminManager();
+		$result = $adminManager->getAdmin($_POST['pseudo']);
+
+		$req = $result->fetch();
+
+		$isPasswordCorrect = password_verify($_POST['password'], $req['password']);
+
+		if (!$req)
+		{
+		    echo 'Mauvais identifiant ou mot de passe 1!';
+		}
+		else
+		{
+		    if ($isPasswordCorrect) {
+		    	$_SESSION['connect'] = true;
+		    	$this->redirectBack();
+		        echo "string";
+		    }
+		    else {
+		        echo 'Mauvais identifiant ou mot de passe 2!';
+		    }
+		}
+	}
+
+	/**
+	 * Se deconnecte de la partie admin
+	 * Session connect sur false
+	 * Redirige ver l accueil visiteur
+	 */
+	public function disconect(){
+		$_SESSION['connect'] = false;
+		header('Location: /courPHP/blog_projet_4/');
 	}
 	
 }
