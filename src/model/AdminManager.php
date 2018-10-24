@@ -24,12 +24,14 @@ class AdminManager extends Model
      * Retourne boolean true ou false
      */
 	public function connect($name, $password){
-		$result = $this->getAdmin($name);
-		if (password_verify($password, $result['password'])){
-			$_SESSION['connect'] = true;
-			$_SESSION['token'] = md5(time()*rand(175, 758));
-			return true;
-		} else 
-			return false;
+		if (isset($_GET['token'])) {
+			$result = $this->getAdmin($name);
+			if (password_verify($password, $result['password'])){
+				$_SESSION['connect'] = true;
+				return true;
+			} else 
+				return false;
+		}
+		
 	}
 }

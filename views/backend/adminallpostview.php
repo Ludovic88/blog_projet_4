@@ -1,4 +1,4 @@
-<?php $title = 'Modifier chapitre | Blog Jean Forteroche'; ?>
+<?php $title = 'Tous les  chapitres | Blog Jean Forteroche'; ?>
 
 <h1>Livre complet</h1>
 

@@ -1,4 +1,4 @@
-<?php $title = 'Blog admin | Ecrire nouveau chapitre'; ?>
+<?php $title = 'admin | Ecrire nouveau chapitre'; ?>
 
 <h1>Editer nouveau chapitre</h1>
 

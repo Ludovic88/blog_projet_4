@@ -45,11 +45,16 @@ class Router
 
 		$adminVerify = explode('/', $path);
 
-		if (isset($adminVerify[1]) && $adminVerify[1] == 'admin' && !isset($_SESSION['connect'])) {
+		if (!isset($_SESSION['token'])) {
+			$_SESSION['token'] = md5(time()*rand(175, 758));
+		}
+
+
+		if (isset($_GET['token']) && $_GET['token'] != $_SESSION['token']) {
+			die('le jeton est périmé');
+		} elseif (isset($adminVerify[1]) && $adminVerify[1] == 'admin' && !isset($_SESSION['connect'])) {
 			header('location: ' . PATH_PREFIX . '/admin-login');
 			exit();
-		} elseif (isset($_GET['token']) && $_GET['token'] != $_SESSION['token']) {
-			die('le jeton est périmé');
 		} else {
 			foreach($this->_router as $key => $route) {
 				if ($path == $key) {

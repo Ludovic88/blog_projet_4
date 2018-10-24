@@ -66,7 +66,7 @@ class BlogController extends Controller
      */
 	public function addComment()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0) {
+		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_GET['token'])) {
             if (!empty($_POST['author']) && !empty($_POST['comment'])){
 				$commentManager = new CommentManager();
 			    $affectedLines = $commentManager->postComment($_GET['id'], $_POST['author'], $_POST['comment']);

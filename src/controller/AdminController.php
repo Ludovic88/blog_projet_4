@@ -144,7 +144,6 @@ class AdminController extends Controller
 	 */
 	public function disconect(){
 		unset($_SESSION['connect']);
-		unset($_SESSION['token']);
 		$this->redirect('');
 	}
 	

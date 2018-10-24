@@ -16,7 +16,7 @@
 
 
 <h2>Laisser un commentaire</h2>
-<form action="<?= PATH_PREFIX ?>/addcomment?id=<?= $post['id'] ?>" method="post" class="form-group">
+<form action="<?= PATH_PREFIX ?>/addcomment?id=<?= $post['id'] ?>&token=<?= $_SESSION['token'] ?>" method="post" class="form-group">
     <label for="author">Pseudo</label> : <input type="text" id="author" name="author" class="form-control col-md-3" placeholder="Ex : Jean" required/><br/>
     <label for="comment">Message</label> :  <textarea name="comment" id="comment" class="form-control col-md-6" rows="3" placeholder="Votre commentaire . . ." required></textarea><br/>
     <button type="button submit" class="btn btn-outline-dark">Envoyer</button>
