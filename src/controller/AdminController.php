@@ -21,10 +21,7 @@ class AdminController extends Controller
 	 */
 	public function editPost()
 	{
-		ob_start();
-		require('../views/backend/createpostview.php');
-		$content = ob_get_clean();
-		require('../views/' . $this->template . '.php');
+		$this->render('backend/createpostview');
 	}
 
 	/**
@@ -32,18 +29,21 @@ class AdminController extends Controller
 	 */
 	public function newPost()
 	{
-		if (!empty($_POST['author']) && !empty($_POST['title']) && !empty($_POST['content']))
-		{
-			$postManager = new PostManager();
-			$affectedPost = $postManager->addNewPost($_POST['author'], $_POST['title'], $_POST['content']);
 
-			if ($affectedPost === false) {
-			    throw new Exception('Impossible d\'ajouter le post !');
-			}
-			else {
-			    $this->redirectBack();
-			}		
-		}
+		/*
+		$postManager = new PostManager();
+		if(!$postManager->addNewPost($_POST['author'], $_POST['title'], $_POST['content']){
+			throw new Exception('Impossible d\'ajouter le post !');
+		}else{
+			$this->redirectBack();
+		}*/
+
+		$postManager = new PostManager();
+		if(!$postManager->addNewPost($_POST['author'], $_POST['title'], $_POST['content'])){
+			throw new Exception('Impossible d\'ajouter le post !');
+		} else {
+		    $this->redirect('/admin');
+		}				
 	}
 
 	/**
@@ -93,7 +93,7 @@ class AdminController extends Controller
 
 		    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
  
- 			header('Location: /courPHP/blog_projet_4/admin');
+ 			$this->redirect('/admin');
         } else {
         	echo "post non existant";
         }
@@ -109,7 +109,7 @@ class AdminController extends Controller
 
 		    $post = $postManager->deletePost($_GET['id']);
  
- 			header('Location: /courPHP/blog_projet_4/admin');
+ 			$this->redirect('/admin');
         } else {
         	echo "post non existant";
         }
@@ -139,26 +139,11 @@ class AdminController extends Controller
 	 */
 	public function adminConnect(){
 		$adminManager = new AdminManager();
-		$result = $adminManager->getAdmin($_POST['pseudo']);
-
-		$req = $result->fetch();
-
-		$isPasswordCorrect = password_verify($_POST['password'], $req['password']);
-
-		if (!$req)
-		{
-		    echo 'Mauvais identifiant ou mot de passe 1!';
-		}
-		else
-		{
-		    if ($isPasswordCorrect) {
-		    	$_SESSION['connect'] = true;
-		    	$this->redirectBack();
-		        echo "string";
-		    }
-		    else {
-		        echo 'Mauvais identifiant ou mot de passe 2!';
-		    }
+		if($adminManager->connect($_POST['pseudo'],$_POST['password'])){
+			//$_SESSION['connect'] = true;
+			$this->redirect('/admin');
+		}else{
+		    echo 'Mauvais identifiant ou mot de passe !';
 		}
 	}
 
@@ -168,8 +153,14 @@ class AdminController extends Controller
 	 * Redirige ver l accueil visiteur
 	 */
 	public function disconect(){
-		$_SESSION['connect'] = false;
-		header('Location: /courPHP/blog_projet_4/');
+		//$_SESSION = array();
+		//session_destroy();
+		unset($_SESSION['connect']);
+		$this->redirect('');
 	}
 	
+
+	public function login(){
+		$this->render('backend/adminconectview');
+	}
 }

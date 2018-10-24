@@ -6,12 +6,6 @@
  */
 class Router
 {
-
-	/**
-	 * Variable qui stock l'url de l'index
-	 */
-	private $_index = "/courPHP/blog_projet_4";
-
 	/**
 	 * Tableau $_router
 	 * Stock le chemin qui suit l'url de l index dans la clef
@@ -24,14 +18,15 @@ class Router
     '/addcomment' => 'BlogController@addComment',
     '/signalcomment' => 'BlogController@signalComment',
     '/admin' => 'AdminController@allPostsAdmin',
-    '/admin-editer-chapitre' => 'AdminController@editPost',
-    '/admin-modifier-chapitre' => 'AdminController@modaratePost',
+    '/admin/editer-chapitre' => 'AdminController@editPost',
+    '/admin/modifier-chapitre' => 'AdminController@modaratePost',
     '/admin/newpost' => 'AdminController@newPost',
     '/admin/updatepost' => 'AdminController@modifyPost',
     '/admin/deletepost' => 'AdminController@deletedPost',
     '/admin/deletecomment' => 'AdminController@deletedcomment',
     '/verifypass' => 'AdminController@adminConnect',
-    '/deconnexion' => 'AdminController@disconect'
+    '/deconnexion' => 'AdminController@disconect',
+    '/admin-login' => 'AdminController@login'
 	];
 
 
@@ -44,16 +39,13 @@ class Router
 	 */
 	public function run(){
 		$uri = explode('?', $_SERVER['REQUEST_URI']);
-		$path = str_replace($this->_index,"",$uri[0]);
+		$path = str_replace(PATH_PREFIX ,"",$uri[0]);
 
 		$adminVerify = explode('/', $path);
-		$adminPath = explode('-', $adminVerify[1]);
 
-		if ($adminPath[0] == 'admin' &&  $_SESSION['connect'] == false) {
-			ob_start();
-			require('../views/backend/adminconectview.php');
-			$content = ob_get_clean();
-			require('../views/frontend/template.php');
+		if (isset($adminVerify[1]) && $adminVerify[1] == 'admin' && !isset($_SESSION['connect'])) {
+			header('location: ' . PATH_PREFIX . '/admin-login');
+			exit();
 		} else {
 			foreach($this->_router as $key => $route) {
 				if ($path == $key) {
@@ -64,10 +56,7 @@ class Router
 				} 
 			}
 		}
-
 		// vérifier si partie admin
-		// failles csrf
-		
-		
+		// failles csrf	
 	}
 }

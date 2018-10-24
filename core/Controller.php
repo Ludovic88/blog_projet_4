@@ -17,7 +17,7 @@ class Controller
      * @param extrait les variables $variable
      * Renvoie ver la vue
      */
-	public function render($path, $vars){
+	public function render($path, $vars = []){
 		extract($vars);
 		ob_start();
 		require('../views/' . $path . '.php');
@@ -30,5 +30,11 @@ class Controller
      */
 	public function redirectBack(){
 		header('Location:' . $_SERVER['HTTP_REFERER']);
+		exit();
+	}
+
+	public function redirect($path){
+		header('Location:' . PATH_PREFIX . $path);
+		exit();
 	}
 }

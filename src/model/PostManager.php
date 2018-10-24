@@ -54,10 +54,13 @@ class PostManager extends Model
 	 */
 	public function addNewPost($author, $title, $post)
 	{
-		$newPost = $this->db->prepare('INSERT INTO posts (author, title, post, date_post) VALUES(?, ?, ?, NOW())');
-	    $affectedPost = $newPost->execute(array($author, $title, $post));
+		if (!empty($author) && !empty($title) && !empty($post))
+		{
+			$newPost = $this->db->prepare('INSERT INTO posts (author, title, post, date_post) VALUES(?, ?, ?, NOW())');
+		    $affectedPost = $newPost->execute(array($author, $title, $post));
 
-	    return $affectedPost;
+		    return $affectedPost;
+		}
 	}
 
 	/**
@@ -69,7 +72,7 @@ class PostManager extends Model
 	 */
 	public function updatePost($title, $post, $idPost)
 	{
-		$newPost = $this->db->prepare('UPDATE posts SET title = ?, post = ?, date_post = NOW() WHERE id = ?');
+		$newPost = $this->db->prepare('UPDATE posts SET title = ?, post = ? WHERE id = ?');
 		$affectedPost = $newPost->execute(array($title, $post, $idPost));
 
 		return $affectedPost;

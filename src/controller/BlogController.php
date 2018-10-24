@@ -55,7 +55,7 @@ class BlogController extends Controller
 		        'comments' => $comments
 		    ]);   
         } else {
-        	echo "post non existant";
+        	echo "post non existant"; // créer une alerte Alert::set('message','error')
         }
 	}
 
