@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = htmlspecialchars($post['title']) . ' | Laisser votre commentaire'; ?>
 
 <h1>Commentez le chapitre</h1>
 

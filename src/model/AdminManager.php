@@ -27,6 +27,7 @@ class AdminManager extends Model
 		$result = $this->getAdmin($name);
 		if (password_verify($password, $result['password'])){
 			$_SESSION['connect'] = true;
+			$_SESSION['token'] = md5(time()*rand(175, 758));
 			return true;
 		} else 
 			return false;

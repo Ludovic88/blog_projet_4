@@ -29,15 +29,6 @@ class AdminController extends Controller
 	 */
 	public function newPost()
 	{
-
-		/*
-		$postManager = new PostManager();
-		if(!$postManager->addNewPost($_POST['author'], $_POST['title'], $_POST['content']){
-			throw new Exception('Impossible d\'ajouter le post !');
-		}else{
-			$this->redirectBack();
-		}*/
-
 		$postManager = new PostManager();
 		if(!$postManager->addNewPost($_POST['author'], $_POST['title'], $_POST['content'])){
 			throw new Exception('Impossible d\'ajouter le post !');
@@ -88,7 +79,7 @@ class AdminController extends Controller
 	 */
 	public function modifyPost()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0) {
+		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_SESSION['token'])) {
             $postManager = new PostManager();
 
 		    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
@@ -104,7 +95,7 @@ class AdminController extends Controller
 	 */
 	public function deletedPost()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0) {
+		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_SESSION['token'])) {
             $postManager = new PostManager();
 
 		    $post = $postManager->deletePost($_GET['id']);
@@ -120,7 +111,7 @@ class AdminController extends Controller
 	 */
 	public function deletedComment()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0) {
+		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_SESSION['token'])) {
             $commentManager = new CommentManager();
 
 		    $comment = $commentManager->deleteComment($_GET['id']);
@@ -140,7 +131,6 @@ class AdminController extends Controller
 	public function adminConnect(){
 		$adminManager = new AdminManager();
 		if($adminManager->connect($_POST['pseudo'],$_POST['password'])){
-			//$_SESSION['connect'] = true;
 			$this->redirect('/admin');
 		}else{
 		    echo 'Mauvais identifiant ou mot de passe !';
@@ -153,13 +143,14 @@ class AdminController extends Controller
 	 * Redirige ver l accueil visiteur
 	 */
 	public function disconect(){
-		//$_SESSION = array();
-		//session_destroy();
 		unset($_SESSION['connect']);
+		unset($_SESSION['token']);
 		$this->redirect('');
 	}
 	
-
+	/**
+	 * Redirige vers le login
+	 */
 	public function login(){
 		$this->render('backend/adminconectview');
 	}

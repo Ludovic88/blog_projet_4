@@ -14,7 +14,7 @@ class PostManager extends Model
 	public function getAllPosts()
 	{
 		// On récupère les  billets
-		$req = $this->db->query('SELECT id, author, title, post, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM posts');
+		$req = $this->db->query('SELECT id, author, title, post, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM posts ORDER BY date_post');
 
 		return $req;
 	}
@@ -54,7 +54,7 @@ class PostManager extends Model
 	 */
 	public function addNewPost($author, $title, $post)
 	{
-		if (!empty($author) && !empty($title) && !empty($post))
+		if (!empty($author) && !empty($title) && !empty($post) && isset($_SESSION['token']))
 		{
 			$newPost = $this->db->prepare('INSERT INTO posts (author, title, post, date_post) VALUES(?, ?, ?, NOW())');
 		    $affectedPost = $newPost->execute(array($author, $title, $post));
