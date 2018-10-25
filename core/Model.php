@@ -13,4 +13,14 @@ class Model
     function __construct(){
 		$this->db = Database::getInstance()->dbConnect();
     }
+
+    /**
+     * Extrait les variables et renvoi la vue
+     * @param chemin de la vue $string
+     * @param extrait les variables $variable
+     * Renvoie ver la vue
+     */
+	public function renderVars($vars){
+		extract($vars);
+	}
 }

@@ -24,7 +24,7 @@ class AdminManager extends Model
      * Retourne boolean true ou false
      */
 	public function connect($name, $password){
-		if (isset($_GET['token'])) {
+		if (isset($_POST['token'])) {
 			$result = $this->getAdmin($name);
 			if (password_verify($password, $result['password'])){
 				$_SESSION['connect'] = true;

@@ -52,7 +52,9 @@ class BlogController extends Controller
 
 		    $this->render('frontend/postview', [
 		        'post' => $post,
-		        'comments' => $comments
+		        'comments' => $comments[0],
+		        'totalPages' => $comments[1],
+		        'currentPage' => $comments[2]
 		    ]);   
         } else {
         	echo "post non existant"; // créer une alerte Alert::set('message','error')
@@ -66,7 +68,7 @@ class BlogController extends Controller
      */
 	public function addComment()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_GET['token'])) {
+		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
             if (!empty($_POST['author']) && !empty($_POST['comment'])){
 				$commentManager = new CommentManager();
 			    $affectedLines = $commentManager->postComment($_GET['id'], $_POST['author'], $_POST['comment']);

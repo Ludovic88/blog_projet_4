@@ -8,5 +8,6 @@
 	<label>Contenu</label> :  <textarea name="content" class="tiny-area form-control col-md-12" id="content" required>
 	</textarea><br/>
 	<input type="hidden" name="author" value="Jean Forteroche">
+	<input type="hidden" name="token" id="token" value="<?= $_SESSION['token'] ?>" />
 	<button type="button submit" name="save" class="btn btn-outline-dark">Publier</button>
 </form>

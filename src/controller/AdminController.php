@@ -67,7 +67,9 @@ class AdminController extends Controller
 
 		    $this->render('backend/modifypostview', [
 		        'post' => $post,
-		        'comments' => $comments
+		        'comments' => $comments[0],
+		        'totalPages' => $comments[1],
+		        'currentPage' => $comments[2]
 		    ]);   
         } else {
         	echo "post non existant";
@@ -75,51 +77,60 @@ class AdminController extends Controller
 	}
 
 	/**
-	 * Modifie un post
+	 * Requete administration de modification ou suppression de post
+	 * Verifie Si la raquete est modifier ou supprimer
+	 * Execute la requete
 	 */
-	public function modifyPost()
+	public function configuratePost()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_SESSION['token'])) {
-            $postManager = new PostManager();
+		if (isset($_POST['modify'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+	            $postManager = new PostManager();
 
-		    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
- 
- 			$this->redirect('/admin');
-        } else {
-        	echo "post non existant";
-        }
-	}
+			    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
+	 
+	 			$this->redirect('/admin');
+        	} else {
+        		echo "post non existant";
+       		}
+		} else if (isset($_POST['delete'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+	            $postManager = new PostManager();
 
-	/**
-	 * Efface un post
-	 */
-	public function deletedPost()
-	{
-		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_SESSION['token'])) {
-            $postManager = new PostManager();
-
-		    $post = $postManager->deletePost($_GET['id']);
- 
- 			$this->redirect('/admin');
-        } else {
-        	echo "post non existant";
-        }
+			    $post = $postManager->deletePost($_GET['id']);
+	 
+	 			$this->redirect('/admin');
+	        } else {
+	        	echo "post non existant";
+	        }
+		}
 	}
 
 	/**
 	 * Efface un commentaire
 	 */
-	public function deletedComment()
+	public function modarateComment()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_SESSION['token'])) {
+		if (isset($_POST['delete'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
             $commentManager = new CommentManager();
 
 		    $comment = $commentManager->deleteComment($_GET['id']);
  
  			$this->redirectBack();
-        } else {
-        	echo "post non existant";
-        }
+	        } else {
+	        	echo "post non existant";
+	        }
+		} elseif (isset($_POST['nosignal'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+			$commentManager = new CommentManager();
+			$affectedLines = $commentManager->noSignalComment($_GET['id']);
+
+			$this->redirectBack();
+			} else {
+				echo "post non existant";
+			}
+		}
 	}
 
 	/**

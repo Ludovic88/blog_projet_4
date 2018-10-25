@@ -21,9 +21,8 @@ class Router
     '/admin/editer-chapitre' => 'AdminController@editPost',
     '/admin/modifier-chapitre' => 'AdminController@modaratePost',
     '/admin/newpost' => 'AdminController@newPost',
-    '/admin/updatepost' => 'AdminController@modifyPost',
-    '/admin/deletepost' => 'AdminController@deletedPost',
-    '/admin/deletecomment' => 'AdminController@deletedcomment',
+    '/admin/configurepost' => 'AdminController@configuratePost',
+    '/admin/modaratecomment' => 'AdminController@modarateComment',
     '/verifypass' => 'AdminController@adminConnect',
     '/deconnexion' => 'AdminController@disconect',
     '/admin-login' => 'AdminController@login'
@@ -45,12 +44,7 @@ class Router
 
 		$adminVerify = explode('/', $path);
 
-		if (!isset($_SESSION['token'])) {
-			$_SESSION['token'] = md5(time()*rand(175, 758));
-		}
-
-
-		if (isset($_GET['token']) && $_GET['token'] != $_SESSION['token']) {
+		if (isset($_POST['token']) && $_POST['token'] != $_SESSION['token']) {
 			die('le jeton est périmé');
 		} elseif (isset($adminVerify[1]) && $adminVerify[1] == 'admin' && !isset($_SESSION['connect'])) {
 			header('location: ' . PATH_PREFIX . '/admin-login');
