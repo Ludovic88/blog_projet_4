@@ -1,11 +1,10 @@
 <?php
-require_once("../core/Model.php");
-
+namespace src\model;
 /**
  * Class PostManager
  * Model qui gere les posts
  */
-class PostManager extends Model
+class PostManager extends \core\Model
 {
 	/**
 	 * Recupere tous les posts

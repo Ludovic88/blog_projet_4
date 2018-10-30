@@ -1,11 +1,10 @@
 <?php
-require_once("../core/Model.php");
-
+namespace src\model;
 /**
  * Class CommentManager
  * Model qui gere les commentaires
  */
-class CommentManager extends Model
+class CommentManager extends \core\Model
 {
 	/**
      * Recupere les commentaire d'un post

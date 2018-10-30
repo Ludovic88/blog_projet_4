@@ -1,14 +1,13 @@
 <?php
-require("../core/Controller.php");
-require_once('../src/model/PostManager.php');
-require_once('../src/model/CommentManager.php');
-require_once('../src/model/AdminManager.php');
-
+namespace src\controller;
+use \src\model\CommentManager;
+use \src\model\PostManager;
+use \src\model\AdminManager;
 /**
  * Class AdminController
- * Contrller qui gere la partie admin
+ * Controller qui gere la partie admin
  */
-class AdminController extends Controller
+class AdminController extends \core\Controller
 {
 	/**
 	 * Nouvelle valeur pour la variable template cree dans le controller principale

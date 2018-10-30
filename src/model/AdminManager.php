@@ -1,7 +1,6 @@
 <?php
-require_once("../core/Model.php");
-
-class AdminManager extends Model
+namespace src\model;
+class AdminManager extends \core\Model
 {
 
 	/**

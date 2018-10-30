@@ -1,11 +1,14 @@
 <?php
-
 /**
  * Lance une session
  * Instancie les class 
  * Lance la fonction run du router qui va emmener ver le bon controller
  */
 session_start();
+require('../core/Autoloader.php');
+\core\Autoloader::register();
+require('../src/Autoloader.php');
+\src\Autoloader::register();
 //On Verifie si le jeton token existe Si non on le cree Si oui on passe a la suite
 if (!isset($_SESSION['token'])) {
 	$token = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
@@ -13,8 +16,7 @@ if (!isset($_SESSION['token'])) {
 }
 
 require_once("../core/Helpers.php");
-require("../core/Router.php");
-$router = new Router();
+$router = new \core\Router();
 $router->run();
 
 //var_dump($_SESSION);

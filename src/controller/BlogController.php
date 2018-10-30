@@ -1,14 +1,12 @@
 <?php
-
-require("../core/Controller.php");
-require_once('../src/model/PostManager.php');
-require_once('../src/model/CommentManager.php');
-
+namespace src\controller;
+use \src\model\CommentManager;
+use \src\model\PostManager;
 /**
  * Class BlogController
  * controler frontend
  */
-class BlogController extends Controller
+class BlogController extends \core\Controller
 {
 	protected $template = 'frontend/template';
 

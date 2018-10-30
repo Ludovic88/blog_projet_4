@@ -1,6 +1,4 @@
-<?php //conection db
-
-
+<?php
 /**
  * Class Database
  * Singleton qui gere la conection a la base de donnée

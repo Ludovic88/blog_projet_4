@@ -1,6 +1,5 @@
 <?php //controller principal
-
-
+namespace core;
 /**
  * Class Controller
  * Controller principal

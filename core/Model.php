@@ -1,6 +1,6 @@
 <?php 
+namespace core;
 require("Database.php");
-
 /**
  * Class Model
  * Model principal
@@ -11,7 +11,7 @@ class Model
 	protected $db;
     //private $_singleton = Database::getInstance();
     function __construct(){
-		$this->db = Database::getInstance()->dbConnect();
+		$this->db = \Database::getInstance()->dbConnect();
     }
 
     /**

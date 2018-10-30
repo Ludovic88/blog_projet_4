@@ -1,32 +1,33 @@
 <?php 
-
+namespace core;
 /**
  * Class Router
  * Recupere l url et instancie le bon controller et execute la bonne fonction
  */
 class Router
 {
+
 	/**
 	 * Tableau $_router
 	 * Stock le chemin qui suit l'url de l index dans la clef
 	 *  => Associe le chemin au controller a instancier @ Associe la fonction
 	 */
 	private $_router = [
-	'/' => 'BlogController@recentPosts',
-    '/blog' => 'BlogController@allPosts',
-    '/post' => 'BlogController@post',
-    '/addcomment' => 'BlogController@addComment',
-    '/signalcomment' => 'BlogController@signalComment',
-    '/admin' => 'AdminController@allPostsAdmin',
-    '/admin/editer-chapitre' => 'AdminController@editPost',
-    '/admin/modifier-chapitre' => 'AdminController@modaratePost',
-    '/admin/newpost' => 'AdminController@newPost',
-    '/admin/configurepost' => 'AdminController@configuratePost',
-    '/admin/configurecomment' => 'AdminController@configurateComment',
-    '/admin/comment' => 'AdminController@modarateComment',
-    '/verifypass' => 'AdminController@adminConnect',
-    '/deconnexion' => 'AdminController@disconect',
-    '/admin-login' => 'AdminController@login'
+	'/' => '\src\controller\BlogController@recentPosts',
+    '/blog' => '\src\controller\BlogController@allPosts',
+    '/post' => '\src\controller\BlogController@post',
+    '/addcomment' => '\src\controller\BlogController@addComment',
+    '/signalcomment' => '\src\controller\BlogController@signalComment',
+    '/admin' => '\src\controller\AdminController@allPostsAdmin',
+    '/admin/editer-chapitre' => '\src\controller\AdminController@editPost',
+    '/admin/modifier-chapitre' => '\src\controller\AdminController@modaratePost',
+    '/admin/newpost' => '\src\controller\AdminController@newPost',
+    '/admin/configurepost' => '\src\controller\AdminController@configuratePost',
+    '/admin/configurecomment' => '\src\controller\AdminController@configurateComment',
+    '/admin/comment' => '\src\controller\AdminController@modarateComment',
+    '/verifypass' => '\src\controller\AdminController@adminConnect',
+    '/deconnexion' => '\src\controller\AdminController@disconect',
+    '/admin-login' => '\src\controller\AdminController@login'
 	];
 
 
@@ -54,7 +55,6 @@ class Router
 			foreach($this->_router as $key => $route) {
 				if ($path == $key) {
 					$run = explode('@', $route);
-					require_once('../src/controller/' . $run[0] . '.php');
 					$controller = new $run[0]();
 					$controller->{$run[1]}();
 				} 
