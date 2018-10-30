@@ -3,7 +3,7 @@
 /**
  * Variable constante qui a comme valeur le prefixe du chemin de l url
  */
-define('PATH_PREFIX',  '/courPHP/blog_projet_4');
+define('PATH_PREFIX', '/courPHP/blog_projet_4');
 
 /**
  * Fonction qui renvoie la class active dans les onglets de la navbar

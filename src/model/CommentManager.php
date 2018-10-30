@@ -33,8 +33,8 @@ class CommentManager extends Model
 	    $comments = $this->db->prepare('SELECT id,  id_post, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr, signal_count FROM comments WHERE id_post = ? ORDER BY date_comment DESC LIMIT ' . $depart . ', ' . $nbCommentPage);
 	    $comments->execute(array($postId));
 
-	    $test = [$comments, $totalPages, $currentPage];
-	    return $test;
+	    $varsForPagination = [$comments, $totalPages, $currentPage];
+	    return $varsForPagination;
 	}
 
 	/**
@@ -63,7 +63,7 @@ class CommentManager extends Model
 
 	public function editComment($newComment, $id)
 	{
-		$comment = $this->db->prepare('UPDATE comments SET comment= ?, date_comment = NOW() WHERE id = ?');
+		$comment = $this->db->prepare('UPDATE comments SET comment = ?, date_comment = NOW() WHERE id = ?');
 		$affectedComment = $comment->execute(array($newComment, $id));
 
 		return $affectedComment;
@@ -82,7 +82,7 @@ class CommentManager extends Model
 		return $affectedCount;
 	}
 
-		/**
+	/**
 	 * Supprime un commentaire
 	 * @param id du commentaire $number
 	 * Retourne une variable
@@ -95,7 +95,7 @@ class CommentManager extends Model
 		return $affectedComment;
 	}
 
-		/**
+	/**
      * Enleve les signalements sur un commentaire
      * @param id du commentairet $number
      * Retourne le nouveau nombre de signalement
@@ -106,5 +106,16 @@ class CommentManager extends Model
 		$affectedCount = $comment->execute(array($id));
 
 		return $affectedCount;
+	}
+
+	/**
+     * Retourne les commentaire signalement
+     * Retourne les commentaires signaler
+     */
+	public function getSignalComments()
+	{
+	     $comments = $this->db->query('SELECT id,  id_post, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr, signal_count FROM comments Where signal_count >= 1 ORDER BY id_post');
+
+	    return $comments;
 	}
 }

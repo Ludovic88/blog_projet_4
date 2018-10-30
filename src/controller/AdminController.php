@@ -107,9 +107,9 @@ class AdminController extends Controller
 	}
 
 	/**
-	 * Efface un commentaire
+	 * Efface ou enleve les signalements un commentaire
 	 */
-	public function modarateComment()
+	public function configurateComment()
 	{
 		if (isset($_POST['delete'])) {
 			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
@@ -163,5 +163,20 @@ class AdminController extends Controller
 	 */
 	public function login(){
 		$this->render('backend/adminconectview');
+	}
+
+	/**
+     * Recupere le post et ses commentaire
+     * Redirige vers la vue modifier commentaire
+     */
+	public function modarateComment()
+	{
+		$commentManager = new CommentManager();
+
+		$comments = $commentManager->getSignalComments();
+
+		$this->render('backend/commentsignalview', [
+		    'comments' => $comments
+		]);   
 	}
 }

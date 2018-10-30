@@ -22,7 +22,8 @@ class Router
     '/admin/modifier-chapitre' => 'AdminController@modaratePost',
     '/admin/newpost' => 'AdminController@newPost',
     '/admin/configurepost' => 'AdminController@configuratePost',
-    '/admin/modaratecomment' => 'AdminController@modarateComment',
+    '/admin/configurecomment' => 'AdminController@configurateComment',
+    '/admin/comment' => 'AdminController@modarateComment',
     '/verifypass' => 'AdminController@adminConnect',
     '/deconnexion' => 'AdminController@disconect',
     '/admin-login' => 'AdminController@login'
