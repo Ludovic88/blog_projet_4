@@ -1,12 +1,12 @@
 <?php
-namespace src\controller;
-use \src\model\CommentManager;
-use \src\model\PostManager;
+namespace blogApp\src\controller;
+use \blogApp\src\model\CommentManager;
+use \blogApp\src\model\PostManager;
 /**
  * Class BlogController
  * controler frontend
  */
-class BlogController extends \core\Controller
+class BlogController extends \blogApp\core\Controller
 {
 	protected $template = 'frontend/template';
 
@@ -66,7 +66,7 @@ class BlogController extends \core\Controller
      */
 	public function addComment()
 	{
-		if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
             if (!empty($_POST['author']) && !empty($_POST['comment'])){
 				$commentManager = new CommentManager();
 			    $affectedLines = $commentManager->postComment($_GET['id'], $_POST['author'], $_POST['comment']);

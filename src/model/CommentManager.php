@@ -1,10 +1,10 @@
 <?php
-namespace src\model;
+namespace blogApp\src\model;
 /**
  * Class CommentManager
  * Model qui gere les commentaires
  */
-class CommentManager extends \core\Model
+class CommentManager extends \blogApp\core\Model
 {
 	/**
      * Recupere les commentaire d'un post
@@ -16,8 +16,11 @@ class CommentManager extends \core\Model
 	public function getComments($postId)
 	{
 		$nbCommentPage = 5;
-		$totalCommentsReq = $this->db->query('SELECT id FROM comments WHERE id_post =' . $postId);
-		$totalComments = $totalCommentsReq->rowCount();
+		//fonction
+		$totalCommentsReq = $this->db->prepare('SELECT COUNT(id) FROM comments WHERE id_post = ?');
+		$totalCommentsReq->execute([$postId]);
+		$totalComments = $totalCommentsReq->fetch()[0];
+		//
 		$totalPages = ceil($totalComments/$nbCommentPage);
 
 		if (isset($_GET['page']) && !empty($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $totalPages) {
@@ -31,6 +34,7 @@ class CommentManager extends \core\Model
 
 	    $comments = $this->db->prepare('SELECT id,  id_post, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr, signal_count FROM comments WHERE id_post = ? ORDER BY date_comment DESC LIMIT ' . $depart . ', ' . $nbCommentPage);
 	    $comments->execute(array($postId));
+	    $comments = $comments->fetchAll();
 
 	    $varsForPagination = [$comments, $totalPages, $currentPage];
 	    return $varsForPagination;
@@ -113,7 +117,8 @@ class CommentManager extends \core\Model
      */
 	public function getSignalComments()
 	{
-	     $comments = $this->db->query('SELECT id,  id_post, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr, signal_count FROM comments Where signal_count >= 1 ORDER BY id_post');
+	    $comments = $this->db->query('SELECT comments.id,  id_post, comments.author, comment, posts.title, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr, signal_count FROM comments LEFT JOIN posts ON comments.id_post = posts.id Where signal_count >= 1 ORDER BY id_post');
+	    $comments = $comments->fetchAll();
 
 	    return $comments;
 	}

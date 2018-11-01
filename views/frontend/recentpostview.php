@@ -3,25 +3,24 @@
 <h1>Post Recent</h1>
 
 <?php
-while ($data = $posts->fetch()){
+foreach ($posts as $post):
 ?>
 	<div class="news">
 		<h2>
-			<a href="<?= PATH_PREFIX ?>/post?id=<?= $data['id'] ?>"><?= htmlspecialchars($data['title']); ?></a>
+			<a href="<?= PATH_PREFIX ?>/post?id=<?= $post['id'] ?>"><?= htmlspecialchars($post['title']); ?></a>
 		</h2>
 			    
 		<p class="chapter">
-			<?= $data['post']; ?>
+			<?= $post['post']; ?>
 		</p>
 		<p>
-			<?= htmlspecialchars($data['author']); ?>
-			<em>le <?= $data['date_creation_fr']; ?></em>
+			<?= htmlspecialchars($post['author']); ?>
+			<em>le <?= $post['date_creation_fr']; ?></em>
 		</p>
 		<p>
-			<em><a href="<?= PATH_PREFIX ?>/post?id=<?= $data['id'] ?>">Commentaires</a></em>
+			<em><a href="<?= PATH_PREFIX ?>/post?id=<?= $post['id'] ?>">Commentaires</a></em>
 		</p>
 	</div>
 <?php
-} // Fin de la boucle des billets
-$posts->closeCursor();
+endforeach;
 ?>

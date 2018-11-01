@@ -1,13 +1,13 @@
 <?php
-namespace src\controller;
-use \src\model\CommentManager;
-use \src\model\PostManager;
-use \src\model\AdminManager;
+namespace blogApp\src\controller;
+use \blogApp\src\model\CommentManager;
+use \blogApp\src\model\PostManager;
+use \blogApp\src\model\AdminManager;
 /**
  * Class AdminController
  * Controller qui gere la partie admin
  */
-class AdminController extends \core\Controller
+class AdminController extends \blogApp\core\Controller
 {
 	/**
 	 * Nouvelle valeur pour la variable template cree dans le controller principale

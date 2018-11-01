@@ -1,6 +1,6 @@
 <?php
-namespace src\model;
-class AdminManager extends \core\Model
+namespace blogApp\src\model;
+class AdminManager extends \blogApp\core\Model
 {
 
 	/**
@@ -28,8 +28,8 @@ class AdminManager extends \core\Model
 			if (password_verify($password, $result['password'])){
 				$_SESSION['connect'] = true;
 				return true;
-			} else 
-				return false;
+			}
+			return false;
 		}
 		
 	}

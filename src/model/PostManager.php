@@ -1,10 +1,10 @@
 <?php
-namespace src\model;
+namespace blogApp\src\model;
 /**
  * Class PostManager
  * Model qui gere les posts
  */
-class PostManager extends \core\Model
+class PostManager extends \blogApp\core\Model
 {
 	/**
 	 * Recupere tous les posts
@@ -14,6 +14,7 @@ class PostManager extends \core\Model
 	{
 		// On récupère les  billets
 		$req = $this->db->query('SELECT id, author, title, post, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM posts ORDER BY date_post');
+		$req = $req->fetchAll();
 
 		return $req;
 	}
@@ -26,6 +27,7 @@ class PostManager extends \core\Model
 	{
 		// On récupère les 5 derniers billets
 		$req = $this->db->query('SELECT id, author, title, post, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM posts ORDER BY date_post DESC LIMIT 0, 5');
+		$req = $req->fetchAll();
 
 		return $req;
 	}

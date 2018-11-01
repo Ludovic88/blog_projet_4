@@ -1,4 +1,4 @@
-<!-- =====  TEMPLATE  FRONTEND  =====  -->
+<!-- =====  TEMPLATE  BACKEND  =====  -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,12 +13,14 @@
         
     <body>
         <!-- === NAVBAR ===  -->
+
         <?php include('navbar.php')?>
         
 
         <!-- === CONTENU ===  -->
 
         <div class="block_page">
+            <!--  Message d'alerte  -->
             <?php
             if (isset($_SESSION['succes'])){
             ?>
@@ -29,13 +31,15 @@
             destroyMessageSucces();
             }
             ?>
-                
+            
+            <!--  Boutton deconexion  -->  
             <?php 
                 if (isset($_SESSION['connect'])) {
                     echo "<p><a href='/courPHP/blog_projet_4/deconnexion'>Déconnexion</a></p>";
                 }
             ?>
-            <!-- Execution d'une fonction qui vérifie si on a une alerte en session, si oui on l'affiche et on la supprime de la session -->
+            
+            <!--  Contenu  --> 
             <?= $content ?>
         </div>
 

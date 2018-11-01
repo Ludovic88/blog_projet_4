@@ -1,5 +1,5 @@
 <?php 
-namespace core;
+namespace blogApp\core;
 require("Database.php");
 /**
  * Class Model

@@ -1,5 +1,5 @@
 <?php //controller principal
-namespace core;
+namespace blogApp\core;
 /**
  * Class Controller
  * Controller principal

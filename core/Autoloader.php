@@ -1,5 +1,5 @@
 <?php
-namespace core;
+namespace blogApp\core;
 /**
 * Class Autoloader
 * Permet de charger dynamiquement une class
@@ -20,15 +20,18 @@ class Autoloader
     static function autoload($class)
     {
         // Uniquement si présent dans notre namespace
-        if (strpos($class, __NAMESPACE__ .  '\\') === 0) {
-            $class = str_replace(__NAMESPACE__ . '\\','', $class);
+        if (strpos($class, 'blogApp' .  '\\') === 0) {
+            $class = str_replace('blogApp' . '\\','', $class);
             $class = str_replace('\\','/', $class);
-            $classPath = __DIR__ . '/' . $class . '.php';
+            $classPath = "../" . $class . '.php';
             if (!file_exists($classPath)) {
+                var_dump($classPath);
+                die("eerer");
                 header('HTTP/1.0 404 Not Found');
                 exit();
             }
             require $classPath;
         }
     }
+
 }

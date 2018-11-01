@@ -1,5 +1,8 @@
 <?php 
-namespace core;
+namespace blogApp\core;
+
+//use \blogApp\src\controller\AdminController;
+//use \blogApp\src\controller\BlogController;
 /**
  * Class Router
  * Recupere l url et instancie le bon controller et execute la bonne fonction
@@ -13,21 +16,21 @@ class Router
 	 *  => Associe le chemin au controller a instancier @ Associe la fonction
 	 */
 	private $_router = [
-	'/' => '\src\controller\BlogController@recentPosts',
-    '/blog' => '\src\controller\BlogController@allPosts',
-    '/post' => '\src\controller\BlogController@post',
-    '/addcomment' => '\src\controller\BlogController@addComment',
-    '/signalcomment' => '\src\controller\BlogController@signalComment',
-    '/admin' => '\src\controller\AdminController@allPostsAdmin',
-    '/admin/editer-chapitre' => '\src\controller\AdminController@editPost',
-    '/admin/modifier-chapitre' => '\src\controller\AdminController@modaratePost',
-    '/admin/newpost' => '\src\controller\AdminController@newPost',
-    '/admin/configurepost' => '\src\controller\AdminController@configuratePost',
-    '/admin/configurecomment' => '\src\controller\AdminController@configurateComment',
-    '/admin/comment' => '\src\controller\AdminController@modarateComment',
-    '/verifypass' => '\src\controller\AdminController@adminConnect',
-    '/deconnexion' => '\src\controller\AdminController@disconect',
-    '/admin-login' => '\src\controller\AdminController@login'
+	'/' => 'BlogController@recentPosts',
+    '/blog' => 'BlogController@allPosts',
+    '/post' => 'BlogController@post',
+    '/addcomment' => 'BlogController@addComment',
+    '/signalcomment' => 'BlogController@signalComment',
+    '/admin' => 'AdminController@allPostsAdmin',
+    '/admin/editer-chapitre' => 'AdminController@editPost',
+    '/admin/modifier-chapitre' => 'AdminController@modaratePost',
+    '/admin/newpost' => 'AdminController@newPost',
+    '/admin/configurepost' => 'AdminController@configuratePost',
+    '/admin/configurecomment' => 'AdminController@configurateComment',
+    '/admin/comment' => 'AdminController@modarateComment',
+    '/verifypass' => 'AdminController@adminConnect',
+    '/deconnexion' => 'AdminController@disconect',
+    '/admin-login' => 'AdminController@login'
 	];
 
 
@@ -43,18 +46,17 @@ class Router
 	public function run(){
 		$uri = explode('?', $_SERVER['REQUEST_URI']);
 		$path = str_replace(PATH_PREFIX ,"",$uri[0]);
-
 		$adminVerify = explode('/', $path);
 
-		if (isset($_POST['token']) && $_POST['token'] != $_SESSION['token']) {
-			die('le jeton est périmé');
-		} elseif (isset($adminVerify[1]) && $adminVerify[1] == 'admin' && !isset($_SESSION['connect'])) {
+		\blogApp\core\Csrf::verifyToken();
+		if (isset($adminVerify[1]) && $adminVerify[1] == 'admin' && !isset($_SESSION['connect'])) {
 			header('location: ' . PATH_PREFIX . '/admin-login');
 			exit();
 		} else {
 			foreach($this->_router as $key => $route) {
 				if ($path == $key) {
 					$run = explode('@', $route);
+					$run[0] = "\blogApp\src\controller\\" . $run[0];
 					$controller = new $run[0]();
 					$controller->{$run[1]}();
 				} 
