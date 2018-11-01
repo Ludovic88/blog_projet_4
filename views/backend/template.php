@@ -19,12 +19,23 @@
         <!-- === CONTENU ===  -->
 
         <div class="block_page">
+            <?php
+            if (isset($_SESSION['succes'])){
+            ?>
+                <div class="alert alert-<?= $_SESSION['class-message-succes']; ?>" role="alert">
+                    <?= $_SESSION['message-succes'] ?>
+                </div>
+            <?php
+            destroyMessageSucces();
+            }
+            ?>
+                
             <?php 
                 if (isset($_SESSION['connect'])) {
                     echo "<p><a href='/courPHP/blog_projet_4/deconnexion'>Déconnexion</a></p>";
                 }
             ?>
-            <!-- Execution d'une fonction qui vérifie si on a une alerte en sessin, si oui on l'affiche et on la supprime de la session -->
+            <!-- Execution d'une fonction qui vérifie si on a une alerte en session, si oui on l'affiche et on la supprime de la session -->
             <?= $content ?>
         </div>
 

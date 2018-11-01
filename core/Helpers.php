@@ -15,3 +15,20 @@ function active($path){
 		echo "active";
 	}
 }
+
+function messageSucces($ifSucces, $message){
+	$_SESSION['succes'] = true;
+	if ($ifSucces == "succes") {
+		$_SESSION['class-message-succes'] = "success";
+	} elseif ($ifSucces == "error") {
+		$_SESSION['class-message-succes'] = "danger";
+	}
+	$_SESSION['message-succes'] = $message;
+}
+
+function destroyMessageSucces(){
+	unset($_SESSION['succes']);
+	unset($_SESSION['class-message-succes']);
+	unset($_SESSION['message-succes']);
+}
+

@@ -9,5 +9,5 @@
 	</textarea><br/>
 	<input type="hidden" name="author" value="Jean Forteroche">
 	<input type="hidden" name="token" id="token" value="<?= $_SESSION['token'] ?>" />
-	<button type="button submit" name="save" class="btn btn-outline-dark">Publier</button>
+	<button type="button submit" name="save" id="new-post" class="btn btn-outline-dark">Publier</button>
 </form>

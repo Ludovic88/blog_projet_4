@@ -30,8 +30,10 @@ class AdminController extends \core\Controller
 	{
 		$postManager = new PostManager();
 		if(!$postManager->addNewPost($_POST['author'], $_POST['title'], $_POST['content'])){
-			throw new Exception('Impossible d\'ajouter le post !');
+			messageSucces("error", "Impossible de posté votre chapitre réessayer plus tard");
+		    $this->redirect('/admin');
 		} else {
+			messageSucces("succes", "Votre chapitre a été posté avec succès");
 		    $this->redirect('/admin');
 		}				
 	}
@@ -88,9 +90,11 @@ class AdminController extends \core\Controller
 
 			    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
 	 
+	 			messageSucces("succes", "Votre chapitre a été modifié avec succès");
 	 			$this->redirect('/admin');
         	} else {
-        		echo "post non existant";
+        		messageSucces("error", "Votre chapitre n'a pas été modifié réessayer plus tard");
+	 			$this->redirect('/admin');
        		}
 		} else if (isset($_POST['delete'])) {
 			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
@@ -98,9 +102,11 @@ class AdminController extends \core\Controller
 
 			    $post = $postManager->deletePost($_GET['id']);
 	 
+	 			messageSucces("succes", "Votre chapitre a été supprimé avec succès");
 	 			$this->redirect('/admin');
 	        } else {
-	        	echo "post non existant";
+	        	messageSucces("error", "Votre chapitre n'a pas été supprimé réessayer plus tard");
+	 			$this->redirect('/admin');
 	        }
 		}
 	}
@@ -112,22 +118,26 @@ class AdminController extends \core\Controller
 	{
 		if (isset($_POST['delete'])) {
 			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
-            $commentManager = new CommentManager();
+	            $commentManager = new CommentManager();
 
-		    $comment = $commentManager->deleteComment($_GET['id']);
- 
- 			$this->redirectBack();
+			    $comment = $commentManager->deleteComment($_GET['id']);
+	 
+	 			messageSucces("succes", "Le commentaire a été supprimé avec succès");
+	 			$this->redirectBack();
 	        } else {
-	        	echo "post non existant";
+	        	messageSucces("error", "Le commentaire n'a pas été supprimé réessayer plus tard");
+	        	$this->redirectBack();
 	        }
 		} elseif (isset($_POST['nosignal'])) {
 			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
-			$commentManager = new CommentManager();
-			$affectedLines = $commentManager->noSignalComment($_GET['id']);
+				$commentManager = new CommentManager();
+				$affectedLines = $commentManager->noSignalComment($_GET['id']);
 
-			$this->redirectBack();
+				messageSucces("succes", "Les signalement ont été réinitialisé");
+	 			$this->redirectBack();
 			} else {
-				echo "post non existant";
+				messageSucces("error", "Les signalement n'ont pas pus etre réinitialisé réessayer plus tard");
+	        	$this->redirectBack();
 			}
 		}
 	}
@@ -141,9 +151,11 @@ class AdminController extends \core\Controller
 	public function adminConnect(){
 		$adminManager = new AdminManager();
 		if($adminManager->connect($_POST['pseudo'],$_POST['password'])){
+			messageSucces("succes", "Bienvenue dans la partie administration " . $_POST['pseudo']);
 			$this->redirect('/admin');
 		}else{
-		    echo 'Mauvais identifiant ou mot de passe !';
+			messageSucces("error", "Mauvais identifiant ou mauvais mot de passe !");
+		    $this->redirectBack();
 		}
 	}
 
