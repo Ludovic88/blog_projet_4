@@ -30,10 +30,10 @@ class AdminController extends \blogApp\core\Controller
 	{
 		$postManager = new PostManager();
 		if(!$postManager->addNewPost($_POST['author'], $_POST['title'], $_POST['content'])){
-			messageSucces("error", "Impossible de posté votre chapitre réessayer plus tard");
+			\blogApp\core\MessageAlert::messageType('danger', 'Impossible de posté votre chapitre réessayer plus tard');
 		    $this->redirect('/admin');
 		} else {
-			messageSucces("succes", "Votre chapitre a été posté avec succès");
+			\blogApp\core\MessageAlert::messageType('success', 'Votre chapitre été posté avec succès');
 		    $this->redirect('/admin');
 		}				
 	}
@@ -90,10 +90,10 @@ class AdminController extends \blogApp\core\Controller
 
 			    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
 	 
-	 			messageSucces("succes", "Votre chapitre a été modifié avec succès");
+	 			\blogApp\core\MessageAlert::messageType('success', 'Votre chapitre a été modifié avec succès');
 	 			$this->redirect('/admin');
         	} else {
-        		messageSucces("error", "Votre chapitre n'a pas été modifié réessayer plus tard");
+        		\blogApp\core\MessageAlert::messageType('danger', 'Votre chapitre n\'a pas été modifié réessayer plus tard');
 	 			$this->redirect('/admin');
        		}
 		} else if (isset($_POST['delete'])) {
@@ -101,11 +101,11 @@ class AdminController extends \blogApp\core\Controller
 	            $postManager = new PostManager();
 
 			    $post = $postManager->deletePost($_GET['id']);
-	 
-	 			messageSucces("succes", "Votre chapitre a été supprimé avec succès");
+
+	 			\blogApp\core\MessageAlert::messageType('success', 'Votre chapitre a été supprimé avec succès');
 	 			$this->redirect('/admin');
 	        } else {
-	        	messageSucces("error", "Votre chapitre n'a pas été supprimé réessayer plus tard");
+	        	\blogApp\core\MessageAlert::messageType('danger', 'Votre chapitre n\'a pas été supprimé réessayer plus tard');
 	 			$this->redirect('/admin');
 	        }
 		}
@@ -122,10 +122,10 @@ class AdminController extends \blogApp\core\Controller
 
 			    $comment = $commentManager->deleteComment($_GET['id']);
 	 
-	 			messageSucces("succes", "Le commentaire a été supprimé avec succès");
+	 			\blogApp\core\MessageAlert::messageType('success', 'Le commentaire a été supprimé avec succès');
 	 			$this->redirectBack();
 	        } else {
-	        	messageSucces("error", "Le commentaire n'a pas été supprimé réessayer plus tard");
+	        	\blogApp\core\MessageAlert::messageType('danger', 'Le commentaire n\'a pas été supprimé réessayer plus tard');
 	        	$this->redirectBack();
 	        }
 		} elseif (isset($_POST['nosignal'])) {
@@ -133,10 +133,10 @@ class AdminController extends \blogApp\core\Controller
 				$commentManager = new CommentManager();
 				$affectedLines = $commentManager->noSignalComment($_GET['id']);
 
-				messageSucces("succes", "Les signalement ont été réinitialisé");
+				\blogApp\core\MessageAlert::messageType('success', 'Les signalement ont été réinitialisé');
 	 			$this->redirectBack();
 			} else {
-				messageSucces("error", "Les signalement n'ont pas pus etre réinitialisé réessayer plus tard");
+				\blogApp\core\MessageAlert::messageType('danger', 'Les signalement n\'ont pas pus etre réinitialisé réessayer plus tard');
 	        	$this->redirectBack();
 			}
 		}
@@ -151,10 +151,10 @@ class AdminController extends \blogApp\core\Controller
 	public function adminConnect(){
 		$adminManager = new AdminManager();
 		if($adminManager->connect($_POST['pseudo'],$_POST['password'])){
-			messageSucces("succes", "Bienvenue dans la partie administration " . $_POST['pseudo']);
+			\blogApp\core\MessageAlert::messageType('success', 'Bienvenue dans la partie administration ' . $_POST['pseudo']);
 			$this->redirect('/admin');
-		}else{
-			messageSucces("error", "Mauvais identifiant ou mauvais mot de passe !");
+		} else {
+			\blogApp\core\MessageAlert::messageType('danger', 'Mauvais identifiant ou mauvais mot de passe !');
 		    $this->redirectBack();
 		}
 	}

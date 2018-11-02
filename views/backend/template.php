@@ -22,14 +22,8 @@
         <div class="block_page">
             <!--  Message d'alerte  -->
             <?php
-            if (isset($_SESSION['succes'])){
-            ?>
-                <div class="alert alert-<?= $_SESSION['class-message-succes']; ?>" role="alert">
-                    <?= $_SESSION['message-succes'] ?>
-                </div>
-            <?php
-            destroyMessageSucces();
-            }
+            \blogApp\core\MessageAlert::verifySessionAlert();
+            \blogApp\core\MessageAlert::destroyMessage();
             ?>
             
             <!--  Boutton deconexion  -->  

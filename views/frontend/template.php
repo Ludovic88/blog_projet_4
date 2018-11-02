@@ -17,6 +17,14 @@
 
         <!-- === CONTENU ===  -->
         <div class="block_page">
+
+            <!--  Message d'alerte  -->
+            <?php
+            \blogApp\core\MessageAlert::verifySessionAlert();
+            \blogApp\core\MessageAlert::destroyMessage();
+            ?>
+
+            <!--  Contenu -->
             <?= $content ?>
         </div>
 

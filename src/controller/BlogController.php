@@ -72,9 +72,11 @@ class BlogController extends \blogApp\core\Controller
 			    $affectedLines = $commentManager->postComment($_GET['id'], $_POST['author'], $_POST['comment']);
 
 			    if ($affectedLines === false) {
-			        throw new Exception('Impossible d\'ajouter le commentaire !');
+			        \blogApp\core\MessageAlert::messageType('danger', 'Le commentaire n\'a pu être posté réessayer plus tard');
+			        $this->redirectBack();
 			    }
 			    else {
+			    	\blogApp\core\MessageAlert::messageType('success', 'Le commentaire a bien été posté, merci');
 			        $this->redirectBack();
 			    }		
 			}

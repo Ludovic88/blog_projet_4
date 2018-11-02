@@ -13,6 +13,5 @@ blogApp\core\Autoloader::register();
 require_once("../core/Helpers.php");
 $router = new blogApp\core\Router();
 $router->run();
-
 //var_dump($_SESSION['token']);
 //var_dump(password_hash('Jean1234', PASSWORD_DEFAULT));

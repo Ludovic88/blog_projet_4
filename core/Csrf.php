@@ -11,7 +11,7 @@ class Csrf
 	 * Genere je ton token
 	 * Condition (if) le genere que si il existe pas 
 	 */
-	public function generateToken(){
+	static function generateToken(){
 		if (!isset($_SESSION['token'])) {
 			$token = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
 			$_SESSION['token'] = $token;
@@ -32,7 +32,7 @@ class Csrf
 	 * Verifie si le token du formulaire corespond a celui de la session 
 	 * si non revoie a la page d accueil
 	 */
-	public function verifyToken(){
+	static function verifyToken(){
 		if (isset($_POST) && (isset($_POST['token']) && $_POST['token'] != $_SESSION['token'])) {
 			header('Location:' . PATH_PREFIX . '/');
 			messageSucces("error", "Impossible d'envoyer le formulaire");
