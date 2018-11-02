@@ -6,6 +6,20 @@ namespace blogApp\src\model;
  */
 class CommentManager extends \blogApp\core\Model
 {
+
+	/**
+     * Recupere le nombre de  commentaire d'un post
+     * @param id du post $number
+     * Retourne la variable $totalComments 
+     */
+	public function commentCount($idPost)
+	{
+		$totalCommentsReq = $this->db->prepare('SELECT COUNT(id) FROM comments WHERE id_post = ?');
+		$totalCommentsReq->execute([$idPost]);
+		$totalComments = $totalCommentsReq->fetch()[0];
+		return $totalComments;
+	}
+
 	/**
      * Recupere les commentaire d'un post
      * Fait une pagination tous les 5 commentaires
@@ -16,11 +30,7 @@ class CommentManager extends \blogApp\core\Model
 	public function getComments($postId)
 	{
 		$nbCommentPage = 5;
-		//fonction
-		$totalCommentsReq = $this->db->prepare('SELECT COUNT(id) FROM comments WHERE id_post = ?');
-		$totalCommentsReq->execute([$postId]);
-		$totalComments = $totalCommentsReq->fetch()[0];
-		//
+		$totalComments = $this->commentCount($postId);
 		$totalPages = ceil($totalComments/$nbCommentPage);
 
 		if (isset($_GET['page']) && !empty($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $totalPages) {
@@ -117,7 +127,7 @@ class CommentManager extends \blogApp\core\Model
      */
 	public function getSignalComments()
 	{
-	    $comments = $this->db->query('SELECT comments.id,  id_post, comments.author, comment, posts.title, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr, signal_count FROM comments LEFT JOIN posts ON comments.id_post = posts.id Where signal_count >= 1 ORDER BY id_post');
+	    $comments = $this->db->query('SELECT comments.id,  id_post, comments.author, comment, posts.title, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr, signal_count FROM comments LEFT JOIN posts ON comments.id_post = posts.id Where signal_count >= 1 ORDER BY signal_count DESC');
 	    $comments = $comments->fetchAll();
 
 	    return $comments;
