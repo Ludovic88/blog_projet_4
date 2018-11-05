@@ -12,8 +12,8 @@ class MessageAlert
 	{
 		if (isset($_SESSION['succes'])){
 				?>
-                <div class="alert alert-<?= $_SESSION['class-message-succes']; ?>" role="alert">
-                    <?= $_SESSION['message-succes'] ?>
+                <div class="alert alert-<?= $_SESSION['succes'][0]; ?>" role="alert">
+                    <?= $_SESSION['succes'][1] ?>
                 </div>
 				<?php
 		}
@@ -23,9 +23,7 @@ class MessageAlert
 	 * Fonction qui envoie un message alert et demande de l'afficher
 	 */
 	static function messageType($type, $message){
-		$_SESSION['succes'] = true;
-		$_SESSION['class-message-succes'] = $type;
-		$_SESSION['message-succes'] = $message;
+		$_SESSION['succes'] = [$type, $message];
 	}
 
 	/**
@@ -33,8 +31,6 @@ class MessageAlert
 	 */
 	static function destroyMessage(){
 		unset($_SESSION['succes']);
-		unset($_SESSION['class-message-succes']);
-		unset($_SESSION['message-succes']);
 	}
 }
 ?>

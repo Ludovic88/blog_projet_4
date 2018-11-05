@@ -85,7 +85,7 @@ class AdminController extends \blogApp\core\Controller
 	public function configuratePost()
 	{
 		if (isset($_POST['modify'])) {
-			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
 	            $postManager = new PostManager();
 
 			    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
@@ -117,7 +117,7 @@ class AdminController extends \blogApp\core\Controller
 	public function configurateComment()
 	{
 		if (isset($_POST['delete'])) {
-			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
 	            $commentManager = new CommentManager();
 
 			    $comment = $commentManager->deleteComment($_GET['id']);
@@ -129,7 +129,7 @@ class AdminController extends \blogApp\core\Controller
 	        	$this->redirectBack();
 	        }
 		} elseif (isset($_POST['nosignal'])) {
-			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
 				$commentManager = new CommentManager();
 				$affectedLines = $commentManager->noSignalComment($_GET['id']);
 

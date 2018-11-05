@@ -68,7 +68,7 @@ class CommentManager extends \blogApp\core\Model
 	//recupere un commentaire
 	public function getComment($id)
 	{
-	    $comment = $this->db->prepare('SELECT id, id_post, comment, author FROM comments WHERE id = ? ');
+	    $comment = $this->db->prepare('SELECT id, id_post, signal_count, comment, author FROM comments WHERE id = ? ');
 	    $comment->execute(array($id));
 
 	    return $comment;
@@ -118,7 +118,7 @@ class CommentManager extends \blogApp\core\Model
 		$comment = $this->db->prepare('UPDATE comments SET signal_count = 0 WHERE id = ?');
 		$affectedCount = $comment->execute(array($id));
 
-		return $affectedCount;
+		return $affectedCount;	
 	}
 
 	/**
