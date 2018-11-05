@@ -60,6 +60,7 @@ class AdminController extends \blogApp\core\Controller
 	public function modaratePost()
 	{
 		if (isset($_GET['id']) && $_GET['id'] > 0) {
+			$_GET['id'] = intval($_GET['id']);
             $postManager = new PostManager();
 		    $commentManager = new CommentManager();
 
@@ -73,7 +74,8 @@ class AdminController extends \blogApp\core\Controller
 		        'currentPage' => $comments[2]
 		    ]);   
         } else {
-        	echo "post non existant";
+        	\blogApp\core\MessageAlert::messageType('danger', 'Post non existant');
+	        $this->redirect('/admin');
         }
 	}
 
@@ -87,7 +89,6 @@ class AdminController extends \blogApp\core\Controller
 		if (isset($_POST['modify'])) {
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
 	            $postManager = new PostManager();
-
 			    $post = $postManager->updatePost($_POST['title'], $_POST['content'], $_GET['id']);
 	 
 	 			\blogApp\core\MessageAlert::messageType('success', 'Votre chapitre a été modifié avec succès');
@@ -97,7 +98,7 @@ class AdminController extends \blogApp\core\Controller
 	 			$this->redirect('/admin');
        		}
 		} else if (isset($_POST['delete'])) {
-			if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['token'])) {
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
 	            $postManager = new PostManager();
 
 			    $post = $postManager->deletePost($_GET['id']);
