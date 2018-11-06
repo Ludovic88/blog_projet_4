@@ -24,8 +24,4 @@
 <ul>
 	<li>Authentifiant: Jean</li>
 	<li>Mot de passe: Jean1234</li>
-<<<<<<< HEAD
-</ul>
-=======
-</ul>
->>>>>>> d4e5f8ea03687073da3771885704f09447f9b7fd
+
