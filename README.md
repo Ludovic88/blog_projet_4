@@ -14,7 +14,7 @@
 	<li>Frontend lecture de billet</li>
 	<li>Backend administration des billets pour l'écture</li>
 	<li>CRUD (create, raed, update, delete)</li>
-	<li>Ajout de commentaires possible + médération dans administration</li>
+	<li>Ajout de commentaires possible + modération dans administration</li>
 	<li>Possible de signaler les billets</li>
 	<li>Interface d'administration basé sur une interface WYSIWYG basé sur TinyMCE.</li>
 	<li>Favoriser la POO</li>
