@@ -19,6 +19,7 @@ class Router
 	'/' => 'BlogController@recentPosts',
     '/blog' => 'BlogController@allPosts',
     '/post' => 'BlogController@post',
+    '/contact' => 'BlogController@contact',
     '/addcomment' => 'BlogController@addComment',
     '/signalcomment' => 'BlogController@signalComment',
     '/admin' => 'AdminController@allPostsAdmin',
@@ -37,6 +38,7 @@ class Router
 	/**
 	 * Pour separe les requete GET_ de l url actuel on le separe avec un explode
 	 * On remplace le chemin de l'index de l url actuel par un vide avec str_replace 
+	 * On verify le token avec la fonction verifyToken de la classe Csrf
 	 * On verifie si on est dans la partie admin
 	 * Si on est pas connecter et quon veut acceder a la partie admin -> login 
 	 * Sinon compare l'url actuelle a la clef $_router avec un foreach

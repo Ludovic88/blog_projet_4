@@ -99,4 +99,12 @@ class BlogController extends \blogApp\core\Controller
 			echo "post non existant";
 		}
 	}
+
+	/**
+     * Redirige vers la page contact
+     */
+	public function contact()
+	{
+		$this->render('frontend/contactview');
+	}
 }

@@ -26,6 +26,23 @@ h2
 	margin: 20px auto;
 }
 
+
+/*===  ACCUEIL  ===*/
+
+.para-acceuil
+{
+    margin: 0 auto;
+    font-size: 1.4em;
+    text-align: justify;
+    width: 95%;
+}
+
+.news
+{
+    margin-top: 100px;
+}
+
+
 /*===  ADMIN  ===*/
 
 #editeur
@@ -43,6 +60,24 @@ h2
 .chapter
 {
 	text-align: justify;
+}
+
+
+/*===  CHAPITRE  ===*/
+
+.contact
+{
+    text-align: center;
+}
+
+.contact h3
+{
+    margin: 40px auto;
+}
+
+.contact p
+{
+    font-size: 1.3em;
 }
 
 

@@ -1,6 +1,12 @@
+<!-- =====  FRONTEND // PAGE QUI AFFICHE TOUS LES POSTS  =====  -->
+
+
+<!-- ===  TITRE ENTETE  === -->
 <?php $title = 'Livre complet | Blog Jean Forteroche'; ?>
 
-<h1>Livre complet</h1>
+
+<!-- ===  PARTIE POSTS  === -->
+<h1>Billet simple pour l'Alaska</h1>
 
 <?php
 foreach ($posts as $post):

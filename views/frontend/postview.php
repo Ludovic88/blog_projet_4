@@ -1,5 +1,12 @@
+<!-- =====  FRONTEND // PAGE QUI AFFICHE UN POST ET SES COMMENTAIRE(S)  =====  -->
+
+
+<!-- ===  TITRE ENTETE  === -->
 <?php $title = htmlspecialchars($post['title']) . ' | Laisser votre commentaire'; ?>
 
+
+
+<!-- ===  PARTIE POST  === -->
 <h1>Commentez le chapitre</h1>
 
 
@@ -15,6 +22,8 @@
 </p>
 
 
+
+<!-- ===  PARTIE COMMENTAIRE / PAGINATION 5 COMMENTAIRES  === -->
 <h2>Laisser un commentaire</h2>
 <form action="<?= PATH_PREFIX ?>/addcomment?id=<?= $post['id'] ?>" method="post" class="form-group">
     <label for="author">Pseudo</label> : <input type="text" id="author" name="author" class="form-control col-md-3" placeholder="Ex : Jean" required/><br/>
@@ -32,7 +41,7 @@ foreach ($comments as $comment):
     <p><?= nl2br(htmlspecialchars($comment['comment'])); ?></p>
 <?php
 endforeach;
-
+// ===> PAGINATION
 if ($totalPages > 1){
 	for ($i = 1; $i <= $totalPages; $i++) { 
 		if ($i == $currentPage) {
@@ -42,5 +51,4 @@ if ($totalPages > 1){
 		}
 	}
 }
-
 ?>
