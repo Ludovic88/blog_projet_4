@@ -55,7 +55,8 @@ class BlogController extends \blogApp\core\Controller
 		        'currentPage' => $comments[2]
 		    ]);   
         } else {
-        	echo "post non existant"; // créer une alerte Alert::set('message','error')
+        	\blogApp\core\MessageAlert::messageType('danger', 'Ce post n\'existe pas');
+	        $this->allPosts();
         }
 	}
 
@@ -96,7 +97,8 @@ class BlogController extends \blogApp\core\Controller
 
 			$this->redirectBack();
 		} else {
-			echo "post non existant";
+			\blogApp\core\MessageAlert::messageType('danger', 'Le commentaire n\'a pu être signalé');
+	        $this->allPosts();
 		}
 	}
 
