@@ -13,7 +13,7 @@
             <li class="nav-item <?php active('/blog'); ?>">
                 <a class="nav-link" href="<?= PATH_PREFIX ?>/blog">Livre</a>
             </li>
-            <li class="nav-item <?php active('/courPHP/blog_projet_4/contact'); ?>">
+            <li class="nav-item <?php active('/contact'); ?>">
                 <a class="nav-link" href="<?= PATH_PREFIX ?>/contact">Contact</a>
             </li>
         </ul>
