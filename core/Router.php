@@ -17,7 +17,7 @@ class Router
 	 */
 	private $_router = [
 	'/' => 'BlogController@recentPosts',
-    '/blog' => 'BlogController@allPosts',
+    '/livre' => 'BlogController@allPosts',
     '/post' => 'BlogController@post',
     '/contact' => 'BlogController@contact',
     '/addcomment' => 'BlogController@addComment',

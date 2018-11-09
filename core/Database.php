@@ -15,7 +15,7 @@ class Database
      */
     private function __construct()
     {
-        $this->_db = new \PDO('mysql:host=localhost;dbname=blog_jf;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $this->_db = new \PDO('mysql:host=' . \blogApp\core\Config::$host . ';dbname=' . \blogApp\core\Config::$dbName . ';charset=utf8', \blogApp\core\Config::$user, \blogApp\core\Config::$password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     }
 
     /**

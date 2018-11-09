@@ -10,8 +10,8 @@
             <li class="nav-item <?php active('/'); ?>">
                 <a class="nav-link" href="<?= PATH_PREFIX ?>/">Accueil</a>
             </li>
-            <li class="nav-item <?php active('/blog'); ?>">
-                <a class="nav-link" href="<?= PATH_PREFIX ?>/blog">Livre</a>
+            <li class="nav-item <?php active('/livre'); ?>">
+                <a class="nav-link" href="<?= PATH_PREFIX ?>/livre">Livre</a>
             </li>
             <li class="nav-item <?php active('/contact'); ?>">
                 <a class="nav-link" href="<?= PATH_PREFIX ?>/contact">Contact</a>
