@@ -1,4 +1,6 @@
 <?php
+namespace blogApp\core;
+use \PDO;
 /**
  * Class Database
  * Singleton qui gere la conection a la base de donnée
@@ -15,7 +17,7 @@ class Database
      */
     private function __construct()
     {
-        $this->_db = new \PDO('mysql:host=' . \blogApp\core\Config::$host . ';dbname=' . \blogApp\core\Config::$dbName . ';charset=utf8', \blogApp\core\Config::$user, \blogApp\core\Config::$password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $this->_db = new PDO('mysql:host=' . \blogApp\core\Config::$host . ';dbname=' . \blogApp\core\Config::$dbName . ';charset=utf8', \blogApp\core\Config::$user, \blogApp\core\Config::$password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     }
 
     /**
@@ -27,7 +29,7 @@ class Database
     {
         if (self::$_instance == null)
         {
-      		self::$_instance = new Database();
+      		self::$_instance = new \blogApp\core\Database();
         }
         return self::$_instance;
     }

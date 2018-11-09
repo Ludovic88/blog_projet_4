@@ -25,7 +25,7 @@ class Autoloader
             $class = str_replace('\\','/', $class);
             $classPath = "../" . $class . '.php';
             if (!file_exists($classPath)) {
-                die("eerer");
+                var_dump($classPath);
                 header('HTTP/1.0 404 Not Found');
                 exit();
             }
