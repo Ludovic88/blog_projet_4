@@ -11,7 +11,7 @@
 <p class="para-acceuil">
 	Bonjour et bienvenue sur mon blog. Pour ceux qui me découvre je suis Jean Forteroche écrivain de roman, je décide de faire une nouvelle aventure : écrire un nouveau roman disponible gratuitement sur internet que je posterais chapitre par chapitre. Vous pourrez laisser vos impréssions par commentaire, laisser des critiques bonnes ou mauvaises à vous de voir. Découvrirez ci-dessous mes 5 derniers chapitre postés.
 </p>
-<p class="para-acceuil">Bonne lecture a tous !</p>
+<p class="para-acceuil">Bonne lecture à tous !</p>
 <p class="para-acceuil"></p>
 
 

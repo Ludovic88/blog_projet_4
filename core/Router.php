@@ -1,8 +1,6 @@
 <?php 
 namespace blogApp\core;
 
-//use \blogApp\src\controller\AdminController;
-//use \blogApp\src\controller\BlogController;
 /**
  * Class Router
  * Recupere l url et instancie le bon controller et execute la bonne fonction
@@ -18,7 +16,7 @@ class Router
 	private $_router = [
 	'/' => 'BlogController@recentPosts',
     '/livre' => 'BlogController@allPosts',
-    '/post' => 'BlogController@post',
+    '/post/' => 'BlogController@post',
     '/contact' => 'BlogController@contact',
     '/addcomment' => 'BlogController@addComment',
     '/signalcomment' => 'BlogController@signalComment',
